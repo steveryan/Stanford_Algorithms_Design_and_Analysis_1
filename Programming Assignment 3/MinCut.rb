@@ -18,6 +18,7 @@ def random_contraction
   old_node = vertex2.shift
   new_node = vertex1[0]
 
+  vertex1.delete(vertex2[0])
   vertex2.delete(vertex1[0])
 
   $array[rand1] = vertex1 + vertex2
@@ -29,7 +30,7 @@ def random_contraction
 end
 
 10000.times do
-  kmcarray = File.open("kargerMinCut.txt").readlines.map(&:chomp)
+  kmcarray = File.open("test1.txt").readlines.map(&:chomp)
   $array = []
   kmcarray.each_with_index do |row, index|
     $array[index] = row.split(/\W+/)
