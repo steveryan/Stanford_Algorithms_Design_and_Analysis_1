@@ -39,7 +39,8 @@ end
   while $array.length > 2
     random_contraction
   end
-  $mincut = $array[0].count if $array[0].count < $mincut
+  # we subtract 1 from the row because the first entry in the row is the node itself
+  $mincut = $array[0].count - 1 if $array[0].count < $mincut
 end
 
 puts $mincut
