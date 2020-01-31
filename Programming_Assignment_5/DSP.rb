@@ -6,6 +6,8 @@ end
 
 $graph = {}
 $length = {}
+$explored = [1]
+$unexplored = *(2..200)
 
 raw_array.each do |row|
   for i in 1...row.length
@@ -28,7 +30,21 @@ raw_array.each do |row|
   end
 end
 
-puts raw_array[0].to_s
-puts raw_array[169].to_s
+$PSP = {}
+$SP = {}
 
-puts $length[1][170]
+(1..200).each do |i|
+  $PSP[i] = 1000000
+end
+
+$PSP.delete(1)
+$SP[1] = 0
+
+def calculate_PSP(vertex)
+  $graph[vertex].each do |node|
+    if $unexplored.includes(node)
+      
+
+    end
+  end
+end
