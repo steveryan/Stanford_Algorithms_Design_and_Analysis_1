@@ -5,18 +5,30 @@ raw_rows.each_with_index do |row, index|
 end
 
 $graph = {}
+$length = {}
 
 raw_array.each do |row|
-  if $graph[row[0].to_i]
-    $graph[row[0].to_i] << row[1].to_i
-  else
-    $graph[row[0].to_i] = [row[1].to_i]
-  end
-  if $rev_graph[row[1].to_i]
-    $rev_graph[row[1].to_i] << row[0].to_i
-  else
-    $rev_graph[row[1].to_i] = [row[0].to_i]
+  for i in 1...row.length
+    vertex = row[i].split(',')[0].to_i
+    length = row[i].split(',')[1].to_i
+    if $graph[row[0].to_i]
+      $graph[row[0].to_i] << vertex
+    else
+      $graph[row[0].to_i] = [vertex]
+    end
+    if $length[row[0].to_i]
+    else
+      $length[row[0].to_i] = {}
+    end
+    if $length[row[0].to_i][vertex]
+      $length[row[0].to_i][vertex] << length
+    else
+      $length[row[0].to_i][vertex] = [length]
+    end
   end
 end
 
 puts raw_array[0].to_s
+puts raw_array[169].to_s
+
+puts $length[1][170]
