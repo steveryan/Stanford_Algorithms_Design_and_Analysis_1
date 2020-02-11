@@ -26,6 +26,10 @@ end
 
 def get_min_of_high_heap
   minimum = $high_heap[0]
+  if $high_heap.length == 1
+    $high_heap.pop
+    return minimum
+  end
   last_value = $high_heap.pop
   $high_heap[0] = last_value
   value_to_track = 0
@@ -40,6 +44,27 @@ def get_min_of_high_heap
   end
   return minimum
 end
+
+def get_max_of_low_heap
+  maximum = $low_heap[0]
+  if $low_heap.length == 1
+    $low_heap.pop
+    return maximum
+  end
+  last_value = $low_heap.pop
+  $low_heap[0] = last_value
+  value_to_track = 0
+  while $low_heap[(2*value_to_track)+1] && ($low_heap[value_to_track] < $low_heap[(2*value_to_track)+1] || ($low_heap[(2*value_to_track)+2] && $low_heap[value_to_track] < $low_heap[(2*value_to_track)+2]))
+    if !$low_heap[(2*value_to_track)+2] || ($low_heap[(2*value_to_track)+1] > $low_heap[(2*value_to_track)+2])
+      $low_heap[value_to_track], $low_heap[(2*value_to_track)+1] = $low_heap[(2*value_to_track)+1], $low_heap[value_to_track]
+      value_to_track = (2*value_to_track)+1
+    else
+      $low_heap[value_to_track], $low_heap[(2*value_to_track)+2] = $low_heap[(2*value_to_track)+2], $low_heap[value_to_track]
+      value_to_track = (2*value_to_track)+2
+    end
+  end
+  return maximum
+end
 # list.each_with_index do |value, index|
 #
 # end
@@ -49,17 +74,10 @@ testarr.each do |value|
   add_to_low_heap(value)
 end
 
-p $high_heap
-p $low_heap
-minimum = get_min_of_high_heap
-p minimum
-minimum = get_min_of_high_heap
-p minimum
-minimum = get_min_of_high_heap
-p minimum
-minimum = get_min_of_high_heap
-p minimum
-minimum = get_min_of_high_heap
-p minimum
-minimum = get_min_of_high_heap
-p minimum
+p "high heap #{$high_heap}"
+p "low heap #{$low_heap}"
+
+until $low_heap.empty?
+  maximum = get_max_of_low_heap
+  p maximum
+end
