@@ -1,7 +1,7 @@
 list = File.open("Median.txt").readlines.map(&:chomp)
 
 list.map!(&:to_i)
-testarr = [4,4,6,3,8,1]
+testarr = [4,7,9,4,6,3,8,1]
 
 $low_heap = []
 $high_heap = []
@@ -69,7 +69,9 @@ end
 $medians=[]
 
 list.each do |value|
-  if value > $low_heap[0]
+  if $low_heap.length == 0 && $high_heap.length == 0
+    add_to_low_heap(value)
+  elsif value > $low_heap[0]
     add_to_high_heap(value)
   else
     add_to_low_heap(value)
@@ -81,9 +83,12 @@ list.each do |value|
     value_to_switch = get_min_of_high_heap
     add_to_low_heap(value_to_switch)
   end
-  if $lowheap.length - $high_heap.length >= 0
+  if $low_heap.length - $high_heap.length >= 0
     $medians.push($low_heap[0])
   else
     $medians.push($high_heap[0])
   end
 end
+
+answer = ($medians.sum)%10000
+p answer
