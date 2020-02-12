@@ -65,19 +65,25 @@ def get_max_of_low_heap
   end
   return maximum
 end
-# list.each_with_index do |value, index|
-#
-# end
 
-testarr.each do |value|
-  add_to_high_heap(value)
-  add_to_low_heap(value)
-end
+$medians=[]
 
-p "high heap #{$high_heap}"
-p "low heap #{$low_heap}"
-
-until $low_heap.empty?
-  maximum = get_max_of_low_heap
-  p maximum
+list.each do |value|
+  if value > $low_heap[0]
+    add_to_high_heap(value)
+  else
+    add_to_low_heap(value)
+  end
+  if $low_heap.length - $high_heap.length > 1
+    value_to_switch = get_max_of_low_heap
+    add_to_high_heap(value_to_switch)
+  elsif $high_heap.length - $low_heap.length > 1
+    value_to_switch = get_min_of_high_heap
+    add_to_low_heap(value_to_switch)
+  end
+  if $lowheap.length - $high_heap.length >= 0
+    $medians.push($low_heap[0])
+  else
+    $medians.push($high_heap[0])
+  end
 end
